@@ -29,7 +29,7 @@ const [isMounted, setIsMounted] = useState(false);
   const onUpload = (result: any) => {
     onChange(result.info.secure_url);
   };
-  
+
   if (!isMounted) {
     return null;
   }
@@ -58,7 +58,6 @@ const [isMounted, setIsMounted] = useState(false);
           const onClick = () => {
             open();
           };
-
           return (
             <Button 
               type="button" 
