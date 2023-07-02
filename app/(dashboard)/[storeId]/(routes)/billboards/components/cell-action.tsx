@@ -33,7 +33,7 @@ export const CellAction: React.FC<CellActionProps> = ({
   const onConfirm = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${params.billbordId}`);
+      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
       toast.success('Billboard deleted.');
       router.refresh();
     } catch (error) {
