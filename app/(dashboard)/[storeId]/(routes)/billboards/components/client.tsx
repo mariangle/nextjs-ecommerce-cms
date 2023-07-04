@@ -3,12 +3,13 @@ import { Heading } from "@/components/ui/heading"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { DataTable } from "@/components/ui/data-table"
+import { ApiList } from "@/components/ui/api-list"
+import { BillboardColumn, columns } from "./columns"
 
 import { Plus } from "lucide-react"
 
 import { useParams } from "next/navigation"
 import { useRouter } from "next/navigation"
-import { BillboardColumn, columns } from "./columns"
 
 interface BillboardClientProps {
     data: BillboardColumn[];
@@ -32,6 +33,9 @@ interface BillboardClientProps {
         </div>
         <Separator />
         <DataTable searchKey="label" columns={columns} data={data} />
+        <Heading title="API" description="API calls for Billboards"/>
+        <Separator />
+        <ApiList entityIdName="billboardId" entityName="billboards"/>
     </>
   )
 }
