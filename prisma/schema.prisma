@@ -20,6 +20,7 @@ model Store {
   products   Product[]   @relation("StoreToProduct")
   sizes      Size[]      @relation("StoreToSize")
   colors     Color[]     @relation("StoreToColor")
+  brands     Brand[]     @relation("StoreToBrand")
   orders     Order[]     @relation("StoreToOrder")
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
@@ -54,28 +55,32 @@ model Category {
 }
 
 model Product {
-  id         String      @id @default(uuid())
-  storeId    String // Foreign Key to Store
-  store      Store       @relation("StoreToProduct", fields: [storeId], references: [id])
-  categoryId String // Foreign Key to Category
-  category   Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
-  name       String
-  price      Decimal
-  isFeatured Boolean     @default(false)
-  isArchived Boolean     @default(false)
-  sizeId     String // Foreign Key to Size
-  size       Size        @relation(fields: [sizeId], references: [id])
-  colorId    String // Foreign Key to Color
-  color      Color       @relation(fields: [colorId], references: [id])
-  images     Image[] // Relation to Image model
-  orderItems OrderItem[] // Relation to Order model
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  id          String      @id @default(uuid())
+  storeId     String // Foreign Key to Store
+  store       Store       @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId  String // Foreign Key to Category
+  category    Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  name        String
+  description String
+  price       Decimal
+  isFeatured  Boolean     @default(false)
+  isArchived  Boolean     @default(false)
+  sizeId      String // Foreign Key to Size
+  size        Size        @relation(fields: [sizeId], references: [id])
+  colorId     String // Foreign Key to Color
+  color       Color       @relation(fields: [colorId], references: [id])
+  brandId     String // Foreign Key to Brand
+  brand       Brand       @relation(fields: [brandId], references: [id])
+  images      Image[] // Relation to Image model
+  orderItems  OrderItem[] // Relation to Order model
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@index([storeId])
   @@index([categoryId])
   @@index([sizeId])
   @@index([colorId])
+  @@index([brandId])
 }
 
 model Order {
@@ -123,6 +128,18 @@ model Color {
   store     Store     @relation("StoreToColor", fields: [storeId], references: [id])
   name      String
   value     String
+  products  Product[] // Relation to Product model
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([storeId])
+}
+
+model Brand {
+  id        String    @id @default(uuid())
+  storeId   String // Foreign Key to Store
+  store     Store     @relation("StoreToBrand", fields: [storeId], references: [id])
+  name      String
   products  Product[] // Relation to Product model
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
