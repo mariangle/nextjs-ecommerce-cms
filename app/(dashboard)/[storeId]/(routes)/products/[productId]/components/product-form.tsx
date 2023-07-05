@@ -251,8 +251,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {sizes.map((size) => (
-                        <SelectItem key={size.id} value={size.id}>{size.name}</SelectItem>
+                      {colors.map((color) => (
+                        <SelectItem key={color.id} value={color.id}>{color.name}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -278,6 +278,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       ))}
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+              <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea disabled={loading} placeholder="Description" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
