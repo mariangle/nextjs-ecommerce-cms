@@ -36,7 +36,6 @@ const BrandsPage = async ({
           columns={columns}
           entityName="brands"
           entityIdName="brandId"
-
           />
       </div>
     </div>
