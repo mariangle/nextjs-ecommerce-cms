@@ -2,8 +2,8 @@ import { format } from "date-fns";
 
 import prismadb from "@/lib/prismadb";
 
-import { BrandColumn } from "./components/columns"
-import { BrandClient } from "./components/client";
+import { BrandColumn, columns } from "./components/columns"
+import { EntityClient } from "@/components/client";
 
 const BrandsPage = async ({ 
   params
@@ -28,7 +28,16 @@ const BrandsPage = async ({
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BrandClient data={formattedBrands} />
+        <EntityClient<BrandColumn> 
+          title="Brands"
+          description="Manage billboards for your store"
+          data={formattedBrands} 
+          searchKey="name"
+          columns={columns}
+          entityName="brands"
+          entityIdName="brandId"
+
+          />
       </div>
     </div>
   );
