@@ -31,6 +31,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 const formSchema = z.object({
   name: z.string().min(1),
+  description: z.string().min(1),
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
@@ -95,7 +96,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/products/${params.billboardId}`, data);
+        await axios.patch(`/api/${params.storeId}/products/${params.productId}`, data);
       } else {
         await axios.post(`/api/${params.storeId}/products`, data);
       }
