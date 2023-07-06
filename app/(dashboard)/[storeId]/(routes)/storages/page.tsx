@@ -29,13 +29,13 @@ const StoragePage = async ({
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <EntityClient<StorageColumn> 
-          title="Storages"
           description="Manage storages for your store"
           data={formattedStorages} 
           searchKey="value"
           columns={columns}
-          entityName="storages"
-          entityIdName="storageId"
+          entity="Storage"
+          entities="storages"
+          entityId="storageId"
           />
       </div>
     </div>

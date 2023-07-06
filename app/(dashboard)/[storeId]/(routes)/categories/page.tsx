@@ -2,8 +2,8 @@ import { format } from "date-fns";
 
 import prismadb from "@/lib/prismadb";
 
-import { CategoryColumn } from "./components/columns"
-import { CategoriesClient } from "./components/client";
+import { CategoryColumn, columns } from "./components/columns"
+import { EntityClient } from "@/components/client";
 
 const CategoriesPage = async ({
   params
@@ -32,7 +32,15 @@ const CategoriesPage = async ({
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <CategoriesClient data={formattedCategories} />
+        <EntityClient 
+          data={formattedCategories} 
+          description="Manage categories for your store"
+          searchKey=""
+          columns={columns}
+          entity="Category"
+          entities="categories"
+          entityId="categoryId"
+        />
       </div>
     </div>
   );

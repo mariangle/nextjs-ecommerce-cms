@@ -30,13 +30,13 @@ const ConditionsPage = async ({
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <EntityClient<ConditionColumn> 
-          title="Conditions"
-          description="Manage conditions for your store"
+          description="Manage conditions for your products"
           data={formattedConditions} 
           searchKey="name"
           columns={columns}
-          entityName="conditions"
-          entityIdName="conditionId"
+          entity="Condition"
+          entities="conditions"
+          entityId="conditionId"
           />
       </div>
     </div>

@@ -29,13 +29,13 @@ const BrandsPage = async ({
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <EntityClient<BrandColumn> 
-          title="Brands"
-          description="Manage billboards for your store"
+          description="Manage brands for your products"
           data={formattedBrands} 
           searchKey="name"
           columns={columns}
-          entityName="brands"
-          entityIdName="brandId"
+          entity="Brand"
+          entities="brands"
+          entityId="brandId"
           />
       </div>
     </div>

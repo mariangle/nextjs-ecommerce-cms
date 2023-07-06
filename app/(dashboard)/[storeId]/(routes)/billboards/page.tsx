@@ -28,13 +28,13 @@ const BillboardsPage = async ({
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <EntityClient<BillboardColumn>
-          title="Billboards"
           description="Manage billboards for your store"
           data={formattedBillboards}
           searchKey="label"
           columns={columns}
-          entityName="billboards"
-          entityIdName="billboardId"
+          entity="Billboard"
+          entities="billboards"
+          entityId="billboardId"
         />
       </div>
     </div>

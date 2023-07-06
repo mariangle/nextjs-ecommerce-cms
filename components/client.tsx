@@ -9,23 +9,23 @@ import { Separator } from "@/components/ui/separator";
 import { ApiList } from "@/components/ui/api-list";
 
 interface EntityClientProps<T> {
-  title: string;
   description: string;
   data: T[];
   searchKey: string;
   columns: any[];
-  entityName: string;
-  entityIdName: string;
+  entity: string;
+  entities: string;
+  entityId: string;
 }
 
 export const EntityClient = <T,>({
-  title,
   description,
   data,
   searchKey,
   columns,
-  entityName,
-  entityIdName,
+  entity,
+  entities,
+  entityId,
 }: EntityClientProps<T>) => {
   const params = useParams();
   const router = useRouter();
@@ -33,16 +33,16 @@ export const EntityClient = <T,>({
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={`${title} (${data.length})`} description={description} />
-        <Button onClick={() => router.push(`/${params.storeId}/${entityName}/new`)}>
+        <Heading title={`${entity} (${data.length})`} description={description} />
+        <Button onClick={() => router.push(`/${params.storeId}/${entities}/new`)}>
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
       <Separator />
       <DataTable searchKey={searchKey} columns={columns} data={data} />
-      <Heading title="API" description={`API Calls for ${entityName}`} />
+      <Heading title="API" description={`API Calls for ${entities}`} />
       <Separator />
-      <ApiList entityName={entityName} entityIdName={entityIdName} />
+      <ApiList entity={entity} entityId={entityId} />
     </>
   );
 };
