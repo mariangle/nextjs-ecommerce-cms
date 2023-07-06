@@ -156,14 +156,14 @@ model Storage {
 }
 
 model Condition {
-  id        String    @id @default(uuid())
-  storeId   String // Foreign Key to Store
-  store     Store     @relation("StoreToCondition", fields: [storeId], references: [id])
-  name      String
-  value     String
-  products  Product[] // Relation to Product model
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id          String    @id @default(uuid())
+  storeId     String // Foreign Key to Store
+  store       Store     @relation("StoreToCondition", fields: [storeId], references: [id])
+  name        String
+  description String
+  products    Product[] // Relation to Product model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([storeId])
 }
