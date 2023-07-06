@@ -12,7 +12,10 @@ export async function POST(
 
     const body = await req.json();
 
-    const { name, description, price, categoryId, colorId, sizeId, brandId, images, isFeatured, isArchived } = body;
+    const { 
+      name, description, price, images, isFeatured, isArchived,
+      categoryId, colorId, sizeId, brandId, storageId, conditionId 
+    } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -33,22 +36,6 @@ export async function POST(
     if (!price) {
       return new NextResponse("Price is required", { status: 400 });
     }
-
-    if (!categoryId) {
-      return new NextResponse("Category id is required", { status: 400 });
-    }
-
-    if (!colorId) {
-      return new NextResponse("Color id is required", { status: 400 });
-    }
-
-    if (!sizeId) {
-      return new NextResponse("Size id is required", { status: 400 });
-    }
-    
-    if (!brandId) {
-        return new NextResponse("Brand id is required", { status: 400 });
-      }
 
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
@@ -76,6 +63,8 @@ export async function POST(
         colorId,
         sizeId,
         brandId,
+        storageId,
+        conditionId,
         storeId: params.storeId,
         images: {
           createMany: {
@@ -104,6 +93,8 @@ export async function GET(
     const colorId = searchParams.get('colorId') || undefined;
     const sizeId = searchParams.get('sizeId') || undefined;
     const brandId = searchParams.get('brandId') || undefined;
+    const storageId = searchParams.get('storageId') || undefined;
+    const conditionId = searchParams.get('conditionId') || undefined;
     const isFeatured = searchParams.get('isFeatured');
 
     if (!params.storeId) {
@@ -117,6 +108,8 @@ export async function GET(
         colorId,
         sizeId,
         brandId,
+        storageId,
+        conditionId,
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
       },
@@ -126,6 +119,8 @@ export async function GET(
         color: true,
         size: true,
         brand: true,
+        storage: true,
+        condition: true,
       },
       orderBy: {
         createdAt: 'desc',
