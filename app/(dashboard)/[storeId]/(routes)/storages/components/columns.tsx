@@ -1,8 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-
-import { CellAction } from "./cell-action"
+import { CellAction } from "@/components/cell-action"
 
 export type StorageColumn = {
   id: string
@@ -21,6 +20,6 @@ export const columns: ColumnDef<StorageColumn>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <CellAction data={row.original} />
+    cell: ({ row }) => <CellAction<StorageColumn> data={row.original} entity="Storage" entities="storages"/>
   },
 ];

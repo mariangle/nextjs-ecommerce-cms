@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 
-import { CellAction } from "./cell-action"
+import { CellAction } from "@/components/cell-action"
 
 export type BrandColumn = {
   id: string
@@ -21,6 +21,6 @@ export const columns: ColumnDef<BrandColumn>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <CellAction data={row.original} />
+    cell: ({ row }) => <CellAction<BrandColumn> data={row.original} entity="Brand" entities="brands"/>
   },
 ];

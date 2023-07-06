@@ -2,9 +2,11 @@
  
 import { ColumnDef } from "@tanstack/react-table"
 
-import { CellAction } from "./cell-action" 
+import { CellAction } from "@/components/cell-action"
+
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
+
 export type BillboardColumn = {
     id: string
     label: string;
@@ -22,6 +24,6 @@ export type BillboardColumn = {
     },
     {
       id: "actions",
-      cell: ({ row }) => <CellAction data={row.original} />
+      cell: ({ row }) => <CellAction<BillboardColumn> data={row.original} entity="Billboard" entities="billboards"/>
     },
   ];
