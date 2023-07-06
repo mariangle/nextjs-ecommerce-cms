@@ -13,6 +13,8 @@ export type ProductColumn = {
   size: string;
   color: string;
   brand: string;
+  storage: string;
+  condition: string;
   createdAt: string;
   isFeatured: boolean;
   isArchived: boolean;
@@ -52,6 +54,14 @@ export const columns: ColumnDef<ProductColumn>[] = [
         <div className="h-6 w-6 rounded-full border" style={{ backgroundColor: row.original.color }} />
       </div>
     )
+  },
+  {
+    accessorKey: "storage",
+    header: "Storage",
+  },
+  {
+    accessorKey: "condition",
+    header: "Condition",
   },
   {
     accessorKey: "brand",

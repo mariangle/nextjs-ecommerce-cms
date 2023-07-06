@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import { Trash } from "lucide-react"
-import { Brand, Category, Color, Image, Product, Size } from "@prisma/client"
+import { Brand, Category, Color, Image, Product, Size, Storage, Condition } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -35,11 +35,13 @@ const formSchema = z.object({
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
-  colorId: z.string().min(1),
-  sizeId: z.string().min(1),
-  brandId: z.string().min(1),
-  isFeatured: z.boolean().default(false).optional(),
-  isArchived: z.boolean().default(false).optional()
+  colorId: z.string().min(1).nullable(),
+  sizeId: z.string().min(1).nullable(),
+  brandId: z.string().min(1).nullable(),
+  storageId: z.string().min(1).nullable(),
+  conditionId: z.string().min(1).nullable(),
+  isFeatured: z.boolean().default(false),
+  isArchived: z.boolean().default(false)
 });
 
 type ProductFormValues = z.infer<typeof formSchema>
@@ -52,6 +54,8 @@ interface ProductFormProps {
   colors: Color[];
   sizes: Size[];
   brands: Brand[];
+  storages: Storage[];
+  conditions: Condition[];
 };
 
 export const ProductForm: React.FC<ProductFormProps> = ({
@@ -59,7 +63,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   categories,
   sizes,
   colors,
-  brands
+  brands,
+  storages,
+  conditions,
 }) => {
   const params = useParams();
   const router = useRouter();
@@ -83,6 +89,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     colorId: '',
     sizeId: '',
     brandId: '',
+    storageId: '',
+    conditionId: '',
     isFeatured: false,
     isArchived: false,
   }
@@ -222,10 +230,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Size</FormLabel>
-                  <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value} placeholder="Select a size" />
+                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a size" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -244,10 +252,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Color</FormLabel>
-                  <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value} placeholder="Select a color" />
+                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a color" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -266,10 +274,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Brand</FormLabel>
-                  <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value} placeholder="Select a brand" />
+                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a brand" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -282,7 +290,51 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-              <FormField
+            <FormField
+              control={form.control}
+              name="storageId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Storage</FormLabel>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a storyage" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {storages.map((storage) => (
+                        <SelectItem key={storage.id} value={storage.id}>{storage.value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="conditionId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Condition</FormLabel>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a condition" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {conditions.map((condition) => (
+                        <SelectItem key={condition.id} value={condition.id}>{condition.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
               control={form.control}
               name="description"
               render={({ field }) => (

@@ -43,9 +43,9 @@ export const BrandForm: React.FC<BrandFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? 'Edit brand' : 'Create brand';
-  const description = initialData ? 'Edit a Brand.' : 'Add a new brand';
-  const toastMessage = initialData ? 'brand updated.' : 'brand created.';
+  const title = initialData ? 'Edit Brand' : 'Create Brand';
+  const description = initialData ? 'Edit a Brand.' : 'Add a new Brand';
+  const toastMessage = initialData ? 'Brand updated.' : 'Brand created.';
   const action = initialData ? 'Save changes' : 'Create';
 
   const form = useForm<BrandFormValues>({

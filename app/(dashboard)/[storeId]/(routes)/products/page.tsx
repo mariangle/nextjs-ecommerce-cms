@@ -20,6 +20,8 @@ const ProductsPage = async ({
       size: true,
       color: true,
       brand: true,
+      storage: true,
+      condition: true,
     },
     orderBy: {
       createdAt: 'desc'
@@ -34,9 +36,11 @@ const ProductsPage = async ({
     isArchived: item.isArchived,
     price: formatter.format(item.price.toNumber()),
     category: item.category.name,
-    size: item.size.name,
-    color: item.color.value,
-    brand: item.brand.name,
+    size: item.size?.name ?? '',
+    color: item.color?.value ?? '', 
+    brand: item.brand?.name ?? '', 
+    storage: item.storage?.value ?? '',
+    condition: item.condition?.name ?? '', 
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }));
 
@@ -44,13 +48,13 @@ const ProductsPage = async ({
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <EntityClient<ProductColumn> 
-          title="Products"
           description="Manage products for your store"
           data={formattedProducts} 
           searchKey="name"
           columns={columns}
-          entityName="products"
-          entityIdName="productId"
+          entity="Product"
+          entities="products"
+          entityId="productId"
           />
       </div>
     </div>
