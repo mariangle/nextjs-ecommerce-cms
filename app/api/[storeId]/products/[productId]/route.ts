@@ -22,6 +22,8 @@ export async function GET(
         size: true,
         color: true,
         brand: true,
+        storage: true,
+        condition: true,
       }
     });
   

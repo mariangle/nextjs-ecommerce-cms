@@ -35,11 +35,11 @@ const formSchema = z.object({
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
-  colorId: z.string().min(1).nullable(),
-  sizeId: z.string().min(1).nullable(),
-  brandId: z.string().min(1).nullable(),
-  storageId: z.string().min(1).nullable(),
-  conditionId: z.string().min(1).nullable(),
+  colorId: z.string().optional(),
+  sizeId: z.string().optional(),
+  brandId: z.string().optional(),
+  storageId: z.string().optional(),
+  conditionId: z.string().optional(),
   isFeatured: z.boolean().default(false),
   isArchived: z.boolean().default(false)
 });
@@ -97,6 +97,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
+    // @ts-ignore
     defaultValues
   });
 
@@ -230,10 +231,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Size</FormLabel>
-                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a size" />
+                        <SelectValue defaultValue={field.value} placeholder="Select a size" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -252,10 +253,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Color</FormLabel>
-                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a color" />
+                        <SelectValue defaultValue={field.value} placeholder="Select a color" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -274,10 +275,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Brand</FormLabel>
-                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a brand" />
+                        <SelectValue defaultValue={field.value} placeholder="Select a brand" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -296,10 +297,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Storage</FormLabel>
-                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a storyage" />
+                        <SelectValue defaultValue={field.value} placeholder="Select a storyage" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -318,10 +319,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Condition</FormLabel>
-                  <Select disabled={loading} onValueChange={field.onChange} value={field.value ?? ''} defaultValue={field.value ?? ''}>
+                  <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value ?? ''} placeholder="Select a condition" />
+                        <SelectValue defaultValue={field.value} placeholder="Select a condition" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
