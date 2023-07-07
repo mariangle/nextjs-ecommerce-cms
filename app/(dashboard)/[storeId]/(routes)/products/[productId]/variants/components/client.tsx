@@ -8,7 +8,7 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { ApiList } from "@/components/ui/api-list";
 
-interface EntityClientProps<T> {
+interface VariantClientProps<T> {
   description: string;
   data: T[];
   searchKey: string;
@@ -19,7 +19,7 @@ interface EntityClientProps<T> {
   title?: string;
 }
 
-export const EntityClient = <T,>({
+export const VariantClient = <T,>({
   title,
   description,
   data,
@@ -28,7 +28,7 @@ export const EntityClient = <T,>({
   entity,
   entities,
   entityId,
-}: EntityClientProps<T>) => {
+}: VariantClientProps<T>) => {
   const params = useParams();
   const router = useRouter();
 
@@ -36,7 +36,7 @@ export const EntityClient = <T,>({
     <>
       <div className="flex items-center justify-between">
         <Heading title={title ? title : `${entity} (${data.length})`} description={description} />
-        <Button onClick={() => router.push(`/${params.storeId}/${entities}/new`)}>
+        <Button onClick={() => router.push(`/${params.storeId}/products/${params.productId}/variants/new`)}>
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>

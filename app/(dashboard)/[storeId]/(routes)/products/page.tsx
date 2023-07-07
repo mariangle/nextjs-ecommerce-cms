@@ -1,7 +1,6 @@
 import { format } from "date-fns";
 
 import prismadb from "@/lib/prismadb";
-import { formatter } from "@/lib/utils";
 
 import { EntityClient } from "@/components/client";
 import { ProductColumn, columns } from "./components/columns";
@@ -17,11 +16,8 @@ const ProductsPage = async ({
     },
     include: {
       category: true,
-      size: true,
-      color: true,
       brand: true,
-      storage: true,
-      condition: true,
+      productVariants: true,
     },
     orderBy: {
       createdAt: 'desc'
@@ -31,16 +27,12 @@ const ProductsPage = async ({
   const formattedProducts: ProductColumn[] = products.map((item) => ({
     id: item.id,
     name: item.name,
+    brand: item.brand?.name,
+    category: item.category.name,
     description: item.description,
     isFeatured: item.isFeatured,
     isArchived: item.isArchived,
-    price: formatter.format(item.price.toNumber()),
-    category: item.category.name,
-    size: item.size?.name ?? '',
-    color: item.color?.value ?? '', 
-    brand: item.brand?.name ?? '', 
-    storage: item.storage?.value ?? '',
-    condition: item.condition?.name ?? '', 
+    stock: item.productVariants.length,
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }));
 

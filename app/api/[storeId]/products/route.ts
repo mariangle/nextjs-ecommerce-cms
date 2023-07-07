@@ -13,8 +13,8 @@ export async function POST(
     const body = await req.json();
 
     const { 
-      name, description, price, images, isFeatured, isArchived,
-      categoryId, colorId, sizeId, brandId, storageId, conditionId 
+      name, description, isFeatured, isArchived,
+      categoryId, brandId 
     } = body;
 
     if (!userId) {
@@ -27,14 +27,6 @@ export async function POST(
 
     if (!description) {
         return new NextResponse("Description is required", { status: 400 });
-      }
-
-    if (!images || !images.length) {
-      return new NextResponse("Images are required", { status: 400 });
-    }
-
-    if (!price) {
-      return new NextResponse("Price is required", { status: 400 });
     }
 
     if (!params.storeId) {
@@ -56,23 +48,11 @@ export async function POST(
       data: {
         name,
         description,
-        price,
         isFeatured,
         isArchived,
         categoryId,
-        colorId,
-        sizeId,
         brandId,
-        storageId,
-        conditionId,
         storeId: params.storeId,
-        images: {
-          createMany: {
-            data: [
-              ...images.map((image: { url: string }) => image),
-            ],
-          },
-        },
       },
     });
   
@@ -90,11 +70,7 @@ export async function GET(
   try {
     const { searchParams } = new URL(req.url)
     const categoryId = searchParams.get('categoryId') || undefined;
-    const colorId = searchParams.get('colorId') || undefined;
-    const sizeId = searchParams.get('sizeId') || undefined;
     const brandId = searchParams.get('brandId') || undefined;
-    const storageId = searchParams.get('storageId') || undefined;
-    const conditionId = searchParams.get('conditionId') || undefined;
     const isFeatured = searchParams.get('isFeatured');
 
     if (!params.storeId) {
@@ -105,22 +81,13 @@ export async function GET(
       where: {
         storeId: params.storeId,
         categoryId,
-        colorId,
-        sizeId,
         brandId,
-        storageId,
-        conditionId,
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
       },
       include: {
-        images: true,
         category: true,
-        color: true,
-        size: true,
         brand: true,
-        storage: true,
-        condition: true,
       },
       orderBy: {
         createdAt: 'desc',

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Copy, Edit, MoreHorizontal, Trash, Palette } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 
@@ -22,21 +22,17 @@ interface CellActionProps<T> {
   data: T;
   entity: string;
   entities: string;
-  deleteMessage?: string;
 }
 
 export const CellAction = <T extends Entity>({ 
     data, 
     entity, 
     entities,
-    deleteMessage
 }: CellActionProps<T>) => {
   const router = useRouter();
   const params = useParams();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const onDeleteMessage = `Make sure you removed all products related to ${entity} first.`
 
   const onConfirm = async () => {
     try {
@@ -45,7 +41,7 @@ export const CellAction = <T extends Entity>({
       toast.success(`${entity} deleted.`);
       router.refresh();
     } catch (error) {
-      toast.error(deleteMessage ? deleteMessage : onDeleteMessage);
+      toast.error(`Make sure you removed all products related to ${entity} first.`);
     } finally {
       setOpen(false);
       setLoading(false);
@@ -86,6 +82,11 @@ export const CellAction = <T extends Entity>({
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4" /> Delete
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => router.push(`/${params.storeId}/${entities}/${data.id}/variants`)}
+          >
+            <Palette className="mr-2 h-4 w-4" /> Variants
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
