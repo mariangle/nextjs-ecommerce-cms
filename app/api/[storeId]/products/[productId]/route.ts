@@ -17,13 +17,8 @@ export async function GET(
         id: params.productId
       },
       include: {
-        images: true,
         category: true,
-        size: true,
-        color: true,
         brand: true,
-        storage: true,
-        condition: true,
       }
     });
   
@@ -86,16 +81,10 @@ export async function PATCH(
     const { 
       name,
       description,
-      price,
       categoryId,
-      images,
       isFeatured,
       isArchived,
-      colorId,
-      sizeId,
       brandId,
-      storageId,
-      conditionId
     } = body;
 
     if (!userId) {
@@ -112,14 +101,6 @@ export async function PATCH(
     
     if (!description) {
         return new NextResponse("Description is required", { status: 400 });
-      }
-
-    if (!images || !images.length) {
-      return new NextResponse("Images are required", { status: 400 });
-    }
-
-    if (!price) {
-      return new NextResponse("Price is required", { status: 400 });
     }
 
     if (!categoryId) {
@@ -137,43 +118,20 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 405 });
     }
 
-    await prismadb.product.update({
+    const product = await prismadb.product.update({
       where: {
         id: params.productId
       },
       data: {
         name,
         description,
-        price,
         categoryId,
-        colorId,
-        sizeId,
         brandId,
-        storageId,
-        conditionId,
-        images: {
-          deleteMany: {},
-        },
         isFeatured,
         isArchived,
       },
     });
 
-    const product = await prismadb.product.update({
-      where: {
-        id: params.productId
-      },
-      data: {
-        images: {
-          createMany: {
-            data: [
-              ...images.map((image: { url: string }) => image),
-            ],
-          },
-        },
-      },
-    })
-  
     return NextResponse.json(product);
   } catch (error) {
     console.log('[PRODUCT_PATCH]', error);
