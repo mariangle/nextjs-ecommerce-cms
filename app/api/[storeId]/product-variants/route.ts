@@ -79,6 +79,9 @@ export async function GET(
 ) {
   try {
     const { searchParams } = new URL(req.url)
+    const colorId = searchParams.get('colorId') || undefined;
+    const storageId = searchParams.get('storageId') || undefined;
+    const conditionId = searchParams.get('conditionId') || undefined;
     const productId = searchParams.get('productId') || undefined;
 
     if (!params.storeId) {
@@ -89,8 +92,16 @@ export async function GET(
       where: {
         storeId: params.storeId,
         productId,
+        colorId,
+        storageId,
+        conditionId,
       },
       include: {
+        product: {
+          include: {
+            category: true,
+          }
+        },
         images: true,
         color: true,
         size: true,
