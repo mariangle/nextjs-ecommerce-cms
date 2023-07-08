@@ -1,5 +1,7 @@
 "use client";
 
+import { AttributesDropdown } from "./attributes-dropdown";
+
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation";
 
@@ -27,31 +29,6 @@ export function MainNav({
       href: `/${params.storeId}/categories`,
       label: 'Categories',
       active: pathname === `/${params.storeId}/categories`,
-    },
-    {
-      href: `/${params.storeId}/sizes`,
-      label: 'Sizes',
-      active: pathname === `/${params.storeId}/sizes`,
-    },
-    {
-      href: `/${params.storeId}/colors`,
-      label: 'Colors',
-      active: pathname === `/${params.storeId}/colors`,
-    },
-    {
-      href: `/${params.storeId}/brands`,
-      label: 'Brands',
-      active: pathname === `/${params.storeId}/brands`,
-    },
-    {
-      href: `/${params.storeId}/storages`,
-      label: 'Storages',
-      active: pathname === `/${params.storeId}/storages`,
-    },
-    {
-      href: `/${params.storeId}/conditions`,
-      label: 'Conditions',
-      active: pathname === `/${params.storeId}/conditions`,
     },
     {
       href: `/${params.storeId}/products`,
@@ -87,6 +64,7 @@ export function MainNav({
           {route.label}
       </Link>
       ))}
+      <AttributesDropdown />
     </nav>
   )
 };

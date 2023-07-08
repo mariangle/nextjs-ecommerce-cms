@@ -89,7 +89,7 @@ export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/product-variants/${params.variantId}`, { data });
+        await axios.patch(`/api/${params.storeId}/product-variants/${params.variantId}`, { productId: params.productId, ...data });
       } else {
         await axios.post(`/api/${params.storeId}/product-variants`, { productId: params.productId, ...data });
       }

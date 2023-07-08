@@ -19,6 +19,15 @@ export async function GET(
       include: {
         category: true,
         brand: true,
+        variants: {
+          include: {
+            images: true,
+            color: true,
+            storage: true,
+            size: true,
+            condition: true,
+          }
+        }
       }
     });
   

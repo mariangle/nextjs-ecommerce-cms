@@ -79,11 +79,7 @@ export async function GET(
 ) {
   try {
     const { searchParams } = new URL(req.url)
-    const colorId = searchParams.get('colorId') || undefined;
-    const sizeId = searchParams.get('sizeId') || undefined;
-    const brandId = searchParams.get('brandId') || undefined;
-    const storageId = searchParams.get('storageId') || undefined;
-    const conditionId = searchParams.get('conditionId') || undefined;
+    const productId = searchParams.get('productId') || undefined;
 
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
@@ -92,11 +88,7 @@ export async function GET(
     const productVariants = await prismadb.productVariant.findMany({
       where: {
         storeId: params.storeId,
-        colorId,
-        sizeId,
-        brandId,
-        storageId,
-        conditionId,
+        productId,
       },
       include: {
         images: true,

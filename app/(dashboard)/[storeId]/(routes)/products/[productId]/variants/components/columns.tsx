@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 
-import { CellAction } from "@/components/cell-action"
+import { CellAction } from "./cell-action"
 
 export type ProductVariantColumn = {
   id: string;
@@ -51,6 +51,6 @@ export const columns: ColumnDef<ProductVariantColumn>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <CellAction<ProductVariantColumn> data={row.original} entity="Variant" entities="product-variants" deleteMessage="An error occured."/>
+    cell: ({ row }) => <CellAction<ProductVariantColumn> data={row.original} entity="Variant" entities="product-variants"/>
   },
 ];

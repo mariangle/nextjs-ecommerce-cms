@@ -17,6 +17,11 @@ export async function GET(
         id: params.variantId
       },
       include: {
+        product: {
+          include: {
+            category: true
+          }
+        },
         images: true,
         size: true,
         color: true,

@@ -72,10 +72,10 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  store           Store            @relation("StoreToProduct", fields: [storeId], references: [id])
-  category        Category         @relation("CategoryToProduct", fields: [categoryId], references: [id])
-  brand           Brand?           @relation(fields: [brandId], references: [id])
-  productVariants ProductVariant[] @relation("ProductToVariant")
+  store    Store            @relation("StoreToProduct", fields: [storeId], references: [id])
+  category Category         @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  brand    Brand?           @relation(fields: [brandId], references: [id])
+  variants ProductVariant[] @relation("ProductToVariant")
 
   @@index([storeId])
   @@index([categoryId])
