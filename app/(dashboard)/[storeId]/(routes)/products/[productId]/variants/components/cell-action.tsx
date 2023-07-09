@@ -41,7 +41,7 @@ export const CellAction = <T extends Entity>({
       toast.success(`${entity} deleted.`);
       router.refresh();
     } catch (error) {
-      toast.error(`Make sure you removed all products related to ${entity} first.`);
+      toast.error(`Make sure you removed all product variants related to ${entity} first.`);
     } finally {
       setOpen(false);
       setLoading(false);

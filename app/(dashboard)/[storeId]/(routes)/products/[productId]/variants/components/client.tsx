@@ -44,7 +44,7 @@ export const VariantClient = <T,>({
       <DataTable searchKey={searchKey} columns={columns} data={data} />
       <Heading title="API" description={`API Calls for ${entities}`} />
       <Separator />
-      <ApiList entity={entity} entityId={entityId} />
+      <ApiList entities={entities} entityId={entityId} />
     </>
   );
 };

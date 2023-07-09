@@ -27,7 +27,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const formSchema = z.object({
   name: z.string().min(2),
-  billboardId: z.string().min(1),
+  billboardId: z.string().optional(),
 });
 
 type CategoryFormValues = z.infer<typeof formSchema>
@@ -86,7 +86,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       router.push(`/${params.storeId}/categories`);
       toast.success('Category deleted.');
     } catch (error: any) {
-      toast.error('Make sure you removed all products using this category first.');
+      toast.error('Make sure you removed all product variants using this category first.');
     } finally {
       setLoading(false);
       setOpen(false);

@@ -81,7 +81,7 @@ export const BrandForm: React.FC<BrandFormProps> = ({
       router.push(`/${params.storeId}/brands`);
       toast.success('Brand deleted.');
     } catch (error: any) {
-      toast.error('Make sure you removed all products using this brand first.');
+      toast.error('Make sure you removed all product variants using this brand first.');
     } finally {
       setLoading(false);
       setOpen(false);

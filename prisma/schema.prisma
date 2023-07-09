@@ -47,14 +47,14 @@ model Billboard {
 model Category {
   id          String   @id @default(uuid())
   storeId     String // Foreign Key to Store
-  billboardId String // Foreign Key to Billboard
+  billboardId String? // Foreign Key to Billboard
   name        String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  store     Store     @relation("StoreToCategory", fields: [storeId], references: [id])
-  billboard Billboard @relation(fields: [billboardId], references: [id])
-  products  Product[] @relation("CategoryToProduct")
+  store     Store      @relation("StoreToCategory", fields: [storeId], references: [id])
+  billboard Billboard? @relation(fields: [billboardId], references: [id])
+  products  Product[]  @relation("CategoryToProduct")
 
   @@index([storeId])
   @@index([billboardId])
@@ -91,11 +91,13 @@ model ProductVariant {
   colorId     String? // Foreign Key to Color
   storageId   String? // Foreign Key to Storage
   conditionId String? // Foreign Key to Condition
+  isFeatured  Boolean  @default(false)
+  isArchived  Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   store     Store      @relation("StoreToVariant", fields: [storeId], references: [id])
-  product   Product    @relation("ProductToVariant", fields: [productId], references: [id])
+  product   Product    @relation("ProductToVariant", fields: [productId], references: [id], onDelete: Cascade)
   size      Size?      @relation(fields: [sizeId], references: [id])
   color     Color?     @relation(fields: [colorId], references: [id])
   storage   Storage?   @relation(fields: [storageId], references: [id])

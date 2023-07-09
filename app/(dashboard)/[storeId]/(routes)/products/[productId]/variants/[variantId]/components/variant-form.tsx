@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,6 +25,8 @@ import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/components/ui/heading"
 import { AlertModal } from "@/components/modals/alert-modal"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
+
 import ImageUpload from "@/components/ui/image-upload"
 
 const formSchema = z.object({
@@ -33,6 +36,7 @@ const formSchema = z.object({
   sizeId: z.string().optional(),
   storageId: z.string().optional(),
   conditionId: z.string().optional(),
+  isArchived: z.boolean().default(false)
 });
 
 type ProductVariantFormValues = z.infer<typeof formSchema>
@@ -46,6 +50,7 @@ interface ProductVariantFormProps {
   sizes: Size[];
   storages: Storage[];
   conditions: Condition[];
+  isArchived: false,
 };
 
 export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
@@ -260,6 +265,29 @@ export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
                     </SelectContent>
                   </Select>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="isArchived"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      // @ts-ignore
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Archived
+                    </FormLabel>
+                    <FormDescription>
+                      This product will not appear anywhere in the store.
+                    </FormDescription>
+                  </div>
                 </FormItem>
               )}
             />

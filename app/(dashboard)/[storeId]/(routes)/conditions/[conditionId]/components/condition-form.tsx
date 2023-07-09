@@ -84,7 +84,7 @@ export const ConditionForm: React.FC<ConditionFormProps> = ({
       router.push(`/${params.storeId}/conditions`);
       toast.success('Condition deleted.');
     } catch (error: any) {
-      toast.error('Make sure you removed all products using this condition first.');
+      toast.error('Make sure you removed all product variants using this condition first.');
     } finally {
       setLoading(false);
       setOpen(false);

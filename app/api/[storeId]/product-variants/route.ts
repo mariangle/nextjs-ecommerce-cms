@@ -14,6 +14,7 @@ export async function POST(
 
     const { 
       productId, images, price, sizeId, colorId, storageId, conditionId,
+      isArchived, isFeatured
     } = body;
 
     if (!userId) {
@@ -56,6 +57,8 @@ export async function POST(
         storageId,
         conditionId,
         storeId: params.storeId,
+        isArchived,
+        isFeatured,
         images: {
           createMany: {
             data: [
@@ -83,6 +86,7 @@ export async function GET(
     const storageId = searchParams.get('storageId') || undefined;
     const conditionId = searchParams.get('conditionId') || undefined;
     const productId = searchParams.get('productId') || undefined;
+    const isFeatured = searchParams.get('isFeatured');
 
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
@@ -95,6 +99,8 @@ export async function GET(
         colorId,
         storageId,
         conditionId,
+        isFeatured: isFeatured ? true : undefined,
+        isArchived: false,
       },
       include: {
         product: {

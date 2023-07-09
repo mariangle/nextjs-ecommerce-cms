@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
     const variantIds = order.orderItems.map((orderItem) => orderItem.productVariantId);
 
-    await prismadb.product.updateMany({
+    await prismadb.productVariant.updateMany({
       where: {
         id: {
           in: [...variantIds],

@@ -21,11 +21,6 @@ export function MainNav({
       active: pathname === `/${params.storeId}`,
     },
     {
-      href: `/${params.storeId}/billboards`,
-      label: 'Billboards',
-      active: pathname === `/${params.storeId}/billboards`,
-    },
-    {
       href: `/${params.storeId}/categories`,
       label: 'Categories',
       active: pathname === `/${params.storeId}/categories`,
@@ -39,11 +34,6 @@ export function MainNav({
       href: `/${params.storeId}/orders`,
       label: 'Orders',
       active: pathname === `/${params.storeId}/orders`,
-    },
-    {
-      href: `/${params.storeId}/settings`,
-      label: 'Settings',
-      active: pathname === `/${params.storeId}/settings`,
     },
   ]
 

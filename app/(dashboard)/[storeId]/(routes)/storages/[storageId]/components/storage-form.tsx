@@ -81,7 +81,7 @@ export const StorageForm: React.FC<StorageFormProps> = ({
       router.push(`/${params.storeId}/storages`);
       toast.success('Storage deleted.');
     } catch (error: any) {
-      toast.error('Make sure you removed all products using this storage first.');
+      toast.error('Make sure you removed all product variants using this storage first.');
     } finally {
       setLoading(false);
       setOpen(false);

@@ -83,10 +83,6 @@ export async function PATCH(
       return new NextResponse("Unauthenticated", { status: 403 });
     }
 
-    if (!billboardId) {
-      return new NextResponse("Billboard ID is required", { status: 400 });
-    }
-
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
     }
