@@ -12,6 +12,7 @@ import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { AlertTitle } from "@/components/ui/alert"
 import {
   Form,
   FormControl,
@@ -25,7 +26,7 @@ import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/components/ui/heading"
 import { AlertModal } from "@/components/modals/alert-modal"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Switch } from "@/components/ui/switch"
 
 import ImageUpload from "@/components/ui/image-upload"
 
@@ -36,7 +37,8 @@ const formSchema = z.object({
   sizeId: z.string().optional(),
   storageId: z.string().optional(),
   conditionId: z.string().optional(),
-  isArchived: z.boolean().default(false)
+  isArchived: z.boolean().default(false),
+  isFeatured: z.boolean().default(false),
 });
 
 type ProductVariantFormValues = z.infer<typeof formSchema>
@@ -50,7 +52,6 @@ interface ProductVariantFormProps {
   sizes: Size[];
   storages: Storage[];
   conditions: Condition[];
-  isArchived: false,
 };
 
 export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
@@ -82,6 +83,8 @@ export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
     sizeId: '',
     storageId: '',
     conditionId: '',
+    isArchived: false,
+    isFeatured: false,
   }
 
   const form = useForm<ProductVariantFormValues>({
@@ -268,29 +271,55 @@ export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
                 </FormItem>
               )}
             />
+          </div>
+          <div className="grid gap-4 lg:max-w-lg">
+            <AlertTitle>
+              Showcasing
+            </AlertTitle>
             <FormField
-              control={form.control}
-              name="isArchived"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      // @ts-ignore
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>
-                      Archived
-                    </FormLabel>
-                    <FormDescription>
-                      This product will not appear anywhere in the store.
-                    </FormDescription>
-                  </div>
-                </FormItem>
-              )}
-            />
+                control={form.control}
+                name="isFeatured"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">
+                        Featured
+                      </FormLabel>
+                      <FormDescription>
+                        This product will appear on the home page.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="isArchived"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">
+                        Archived
+                      </FormLabel>
+                      <FormDescription>
+                        This product will not appear anywhere in your store.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
           </div>
           <div className="flex gap-2 items-center">
           <Button disabled={loading} type="submit">

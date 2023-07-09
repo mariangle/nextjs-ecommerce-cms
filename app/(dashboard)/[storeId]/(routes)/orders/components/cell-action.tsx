@@ -9,7 +9,6 @@ import {
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
-  DropdownMenuLabel, 
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { AlertModal } from "@/components/modals/alert-modal";
@@ -41,16 +40,11 @@ export const CellAction = <T extends Entity>({
       toast.success(`${entity} deleted.`);
       router.refresh();
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast.error('Something went wrong');
     } finally {
       setOpen(false);
       setLoading(false);
     }
-  };
-
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id);
-    toast.success(`${entity} ID copied to clipboard.`);
   };
 
   return (
@@ -69,17 +63,6 @@ export const CellAction = <T extends Entity>({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-                onClick={() => onCopy(data.id)}
-            >
-            <Copy className="mr-2 h-4 w-4" /> Copy Id
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => router.push(`/${params.storeId}/${entities}/${data.id}`)}
-          >
-            <Edit className="mr-2 h-4 w-4" /> Update
-          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4" /> Delete
           </DropdownMenuItem>

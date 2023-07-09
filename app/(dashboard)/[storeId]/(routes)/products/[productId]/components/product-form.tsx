@@ -13,6 +13,7 @@ import { useParams, useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import { AlertTitle } from "@/components/ui/alert"
 import {
   Form,
   FormControl,
@@ -26,13 +27,14 @@ import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/components/ui/heading"
 import { AlertModal } from "@/components/modals/alert-modal"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Switch } from "@/components/ui/switch"
 
 const formSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   categoryId: z.string().min(1),
   brandId: z.string().optional(),
+  isArchived: z.boolean().default(false),
   isFeatured: z.boolean().default(false),
 });
 
@@ -64,9 +66,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     ...initialData,
   } : {
     name: '',
+    description: '',
     categoryId: '',
     brandId: '',
     isFeatured: false,
+    isArchived: false,
   }
 
   const form = useForm<ProductFormValues>({
@@ -132,7 +136,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       <Separator />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <div className="md:grid md:grid-cols-3 gap-8">
+          <div className="grid gap-4 md:max-w-lg" >
             <FormField
               control={form.control}
               name="name"
@@ -203,29 +207,55 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
+          </div>
+          <div className="grid gap-4 lg:max-w-lg">
+            <AlertTitle>
+              Showcasing
+            </AlertTitle>
             <FormField
-              control={form.control}
-              name="isFeatured"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      // @ts-ignore
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>
-                      Featured
-                    </FormLabel>
-                    <FormDescription>
-                      This product will appear on the home page
-                    </FormDescription>
-                  </div>
-                </FormItem>
-              )}
-            />
+                control={form.control}
+                name="isFeatured"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">
+                        Featured
+                      </FormLabel>
+                      <FormDescription>
+                        This product will appear on the home page.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="isArchived"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">
+                        Archived
+                      </FormLabel>
+                      <FormDescription>
+                        This product will not appear anywhere in your store.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}

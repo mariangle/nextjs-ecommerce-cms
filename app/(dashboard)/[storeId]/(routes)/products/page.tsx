@@ -2,7 +2,7 @@ import { format } from "date-fns";
 
 import prismadb from "@/lib/prismadb";
 
-import { EntityClient } from "@/components/client";
+import { EntityClient as ProductsClient } from "@/components/client";
 import { ProductColumn, columns } from "./components/columns";
 
 const ProductsPage = async ({
@@ -39,7 +39,8 @@ const ProductsPage = async ({
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <EntityClient<ProductColumn> 
+        <ProductsClient<ProductColumn> 
+          title="Products"
           description="Manage products for your store"
           data={formattedProducts} 
           searchKey="name"

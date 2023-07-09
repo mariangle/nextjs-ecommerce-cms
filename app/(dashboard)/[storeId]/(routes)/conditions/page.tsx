@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 
 import { ConditionColumn, columns } from "./components/columns"
-import { EntityClient } from "@/components/client";
+import { EntityClient as ConditionsClient} from "@/components/client";
 
 const ConditionsPage = async ({ 
   params
@@ -29,7 +29,8 @@ const ConditionsPage = async ({
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <EntityClient<ConditionColumn> 
+        <ConditionsClient<ConditionColumn> 
+          title="Conditions"
           description="Manage conditions for your products"
           data={formattedConditions} 
           searchKey="name"

@@ -70,7 +70,12 @@ export const CellAction = <T extends Entity>({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
+          <DropdownMenuItem
+            onClick={() => router.push(`/${params.storeId}/${entities}/${data.id}/variants`)}
+          >
+            <Palette className="mr-2 h-4 w-4" /> Variants
+          </DropdownMenuItem>
+          <DropdownMenuItem
                 onClick={() => onCopy(data.id)}
             >
             <Copy className="mr-2 h-4 w-4" /> Copy Id
@@ -82,11 +87,6 @@ export const CellAction = <T extends Entity>({
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4" /> Delete
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => router.push(`/${params.storeId}/${entities}/${data.id}/variants`)}
-          >
-            <Palette className="mr-2 h-4 w-4" /> Variants
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

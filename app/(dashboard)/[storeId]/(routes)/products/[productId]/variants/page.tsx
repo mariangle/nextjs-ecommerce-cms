@@ -39,7 +39,6 @@ const ProductVariantsPage = async ({
 
   const formattedProductVariants: ProductVariantColumn[] = productVariants.map((item) => ({
     id: item.id,
-    product: item.product.name,
     price: formatter.format(item.price.toNumber()),
     size: item.size?.value,
     color: item.color?.value,

@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 
 import { StorageColumn, columns } from "./components/columns"
-import { EntityClient } from "@/components/client";
+import { EntityClient as StoragesClient } from "@/components/client";
 
 const StoragePage = async ({ 
   params
@@ -28,7 +28,8 @@ const StoragePage = async ({
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <EntityClient<StorageColumn> 
+        <StoragesClient<StorageColumn> 
+          title="Storages"
           description="Manage storages for your store"
           data={formattedStorages} 
           searchKey="value"

@@ -35,7 +35,7 @@ export const EntityClient = <T,>({
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={title ? title : `${entity} (${data.length})`} description={description} />
+        <Heading title={title ? `${title} (${data.length})` : `${entity} (${data.length})`} description={description} />
         <Button onClick={() => router.push(`/${params.storeId}/${entities}/new`)}>
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>

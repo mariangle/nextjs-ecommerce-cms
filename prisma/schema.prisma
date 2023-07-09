@@ -66,7 +66,7 @@ model Product {
   categoryId  String // Foreign Key to Category
   brandId     String? // Foreign Key to Brand
   name        String
-  description String
+  description String   @db.VarChar(500)
   isFeatured  Boolean  @default(false)
   isArchived  Boolean  @default(false)
   createdAt   DateTime @default(now())
@@ -76,6 +76,8 @@ model Product {
   category Category         @relation("CategoryToProduct", fields: [categoryId], references: [id])
   brand    Brand?           @relation(fields: [brandId], references: [id])
   variants ProductVariant[] @relation("ProductToVariant")
+
+  images Image[] // Relation to Image model
 
   @@index([storeId])
   @@index([categoryId])
@@ -136,7 +138,7 @@ model OrderItem {
   orderId          String // Foreign Key to Order
   productVariantId String // Foreign Key to ProductVariant
 
-  order   Order          @relation(fields: [orderId], references: [id])
+  order   Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
   variant ProductVariant @relation(fields: [productVariantId], references: [id])
 
   @@index([orderId])
@@ -212,13 +214,16 @@ model Brand {
 }
 
 model Image {
-  id        String   @id @default(uuid())
-  productId String // Foreign Key to Product
-  url       String // URL of the image
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String   @id @default(uuid())
+  productId        String? // Foreign Key to Product
+  productVariantId String? // Foreign Key to ProductVariant
+  url              String // URL of the image
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
-  product ProductVariant @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product        Product?        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productVariant ProductVariant? @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
 
   @@index([productId])
+  @@index([productVariantId])
 }

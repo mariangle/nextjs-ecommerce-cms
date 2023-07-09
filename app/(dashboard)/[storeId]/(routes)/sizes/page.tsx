@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 
 import { SizeColumn, columns } from "./components/columns"
-import { EntityClient } from "@/components/client";
+import { EntityClient as SizeClient } from "@/components/client";
 
 const SizesPage = async ({
   params
@@ -29,7 +29,8 @@ const SizesPage = async ({
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <EntityClient<SizeColumn> 
+        <SizeClient<SizeColumn> 
+          title="Sizes"
           description="Manage sizes for your store"
           data={formattedSizes} 
           searchKey="name"

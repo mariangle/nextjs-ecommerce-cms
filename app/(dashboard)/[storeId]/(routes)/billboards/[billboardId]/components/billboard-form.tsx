@@ -84,7 +84,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       router.push(`/${params.storeId}/billboards`);
       toast.success('Billboard deleted.');
     } catch (error: any) {
-      toast.error('Make sure you removed all categories using this billboard first.');
+      toast.error('Something went wrong.');
     } finally {
       setLoading(false);
       setOpen(false);
@@ -93,12 +93,12 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
 
   return (
     <>
-    <AlertModal 
-      isOpen={open} 
-      onClose={() => setOpen(false)}
-      onConfirm={onDelete}
-      loading={loading}
-    />
+      <AlertModal 
+        isOpen={open} 
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={loading}
+      />
      <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
         {initialData && (

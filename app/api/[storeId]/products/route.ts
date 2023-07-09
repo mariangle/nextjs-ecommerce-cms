@@ -72,6 +72,7 @@ export async function GET(
     const categoryId = searchParams.get('categoryId') || undefined;
     const brandId = searchParams.get('brandId') || undefined;
     const isFeatured = searchParams.get('isFeatured');
+    const isArchived = searchParams.get('isArchived');
 
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
@@ -83,7 +84,7 @@ export async function GET(
         categoryId,
         brandId,
         isFeatured: isFeatured ? true : undefined,
-        isArchived: false,
+        isArchived: isArchived ? false : undefined,
       },
       include: {
         category: true,
