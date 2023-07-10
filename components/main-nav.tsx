@@ -61,7 +61,7 @@ export function MainNav({
 
   return (
     <div className="flex justify-end md:justify-start w-full">
-      <NavigationMenu>
+      <NavigationMenu className="hidden md:block">
         <NavigationMenuList>
           {routes.map((route) => (
             <NavigationMenuItem
@@ -79,7 +79,6 @@ export function MainNav({
           </NavigationMenuItem>
           ))}
           <AttributesDropdown />
-          
         </NavigationMenuList>
       </NavigationMenu>
       <nav className="md:hidden">
@@ -90,24 +89,23 @@ export function MainNav({
             </Button>
           </SheetTrigger>
           <SheetContent>
-            <SheetClose className="w-full h-full">
               <div className="flex flex-col gap-4 items-center justify-center h-full">
                 {routes.map((route) => (
-                  <Link
-                    key={route.href}
-                    href={route.href}
-                    className={cn(
-                      'text-sm font-medium transition-colors hover:text-primary',
-                      route.active ? 'text-black dark:text-white' : 'text-muted-foreground'
-                    )}
-                  >
-                    {route.label}
-                </Link>
-                
+                  <SheetClose>
+                    <Link
+                      key={route.href}
+                      href={route.href}
+                      className={cn(
+                        'text-sm font-medium transition-colors hover:text-primary',
+                        route.active ? 'text-black dark:text-white' : 'text-muted-foreground'
+                      )}
+                    >
+                      {route.label}
+                    </Link>
+                  </SheetClose>
                 ))}
                 <AttributesDropdown />
               </div>
-            </SheetClose>
           </SheetContent>
         </Sheet>
       </nav>
