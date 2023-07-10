@@ -35,7 +35,7 @@ const CategoriesPage = async ({
         <CategoriesClient<CategoryColumn> 
           data={formattedCategories} 
           description="Manage categories for your store"
-          searchKey=""
+          searchKey="name"
           columns={columns}
           entity="Category"
           entities="categories"

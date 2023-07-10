@@ -33,7 +33,7 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
   }
 
   return ( 
-    <Alert>
+    <div className="p-4 border rounded-md">
       <AlertTitle className="flex justify-between items-center gap-x-2">
         <div className="flex gap-2 items-center">
           {title}
@@ -50,6 +50,6 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
           {description}
         </code>
       </AlertDescription>
-    </Alert>
+    </div>
    );
 };
