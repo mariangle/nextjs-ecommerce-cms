@@ -91,9 +91,8 @@ export function MainNav({
           <SheetContent>
               <div className="flex flex-col gap-4 items-center justify-center h-full">
                 {routes.map((route) => (
-                  <SheetClose>
+                  <SheetClose key={route.href}>
                     <Link
-                      key={route.href}
                       href={route.href}
                       className={cn(
                         'text-sm font-medium transition-colors hover:text-primary',
