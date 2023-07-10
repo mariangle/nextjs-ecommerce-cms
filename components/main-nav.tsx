@@ -2,18 +2,22 @@
 import { Menu } from "lucide-react";
 import { AttributesDropdown } from "./attributes-dropdown";
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
 
 import Link from "next/link"
 
@@ -57,24 +61,27 @@ export function MainNav({
 
   return (
     <div className="flex justify-end md:justify-start w-full">
-      <nav
-        className={cn("items-center space-x-4 lg:space-x-6 hidden md:flex", className)}
-        {...props}
-      >
-        {routes.map((route) => (
-          <Link
-            key={route.href}
-            href={route.href}
-            className={cn(
-              'text-sm font-medium transition-colors hover:text-primary',
-              route.active ? 'text-black dark:text-white' : 'text-muted-foreground'
-            )}
-          >
-            {route.label}
-        </Link>
-        ))}
-        <AttributesDropdown />
-      </nav>
+      <NavigationMenu>
+        <NavigationMenuList>
+          {routes.map((route) => (
+            <NavigationMenuItem
+              key={route.href}
+              className={cn(
+                'text-sm font-medium transition-colors hover:text-primary',
+                route.active ? 'text-black dark:text-white' : 'text-muted-foreground'
+              )}
+            >
+            <Link href={route.href} legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                {route.label}
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          ))}
+          <AttributesDropdown />
+          
+        </NavigationMenuList>
+      </NavigationMenu>
       <nav className="md:hidden">
         <Sheet>
           <SheetTrigger asChild>

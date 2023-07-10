@@ -41,7 +41,7 @@ export async function POST(
     line_items.push({
       quantity: 1,
       price_data: {
-        currency: 'USD',
+        currency: 'DKK',
         product_data: {
           name: variant.product.name,
         },
