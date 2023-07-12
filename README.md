@@ -35,7 +35,8 @@ Here are some of the key features:
 
 - [Manage multiple stores](#multiple-stores)
 - [Advanced product customization](#product-customization)
-- [Fetching from the API](#fetching-from-the-api)
+- [Unique APIs endpoints](#unique-api-endpoints)
+- [API Filtering](#api-filtering)
 
 ### Multiple stores
 
@@ -51,9 +52,9 @@ You have the ability to customize your store by creating billboards, as well as 
 
 ![VARIANTS](https://github.com/mariangle/nextjs-ecommerce-cms/assets/124585244/4889cc3b-0406-4658-9247-dd0f1026cc10)
 
-### Fetching from the API
+### Unique API Endpoints
 
-Utilizing the API, you can retrieve lists of entities for each entity type, which can be dynamically rendered on your website. For instance, you can fetch categories and display them in your frontend store's navigation bar. To see an example implementation, you can refer to this [GitHub repository](https://github.com/mariangle/nextjs-ecommerce-store).
+When creating your store, you will be assigned a unique storeId, which grants you access to your own individual endpoint. You can retrieve lists of entities for each entity type, which can be dynamically rendered on your website. For instance, you can fetch categories and display them in your frontend store's navigation bar. To see an example implementation, you can refer to this [GitHub repository](https://github.com/mariangle/nextjs-ecommerce-store).
 
 
 ![API LISTS](https://github.com/mariangle/nextjs-ecommerce-cms/assets/124585244/c534195e-822d-464a-baf4-959445b4c158)
