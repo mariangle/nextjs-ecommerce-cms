@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
+import { Prisma } from '@prisma/client';
 
 import prismadb from '@/lib/prismadb';
 
@@ -81,16 +82,28 @@ export async function GET(
   { params }: { params: { storeId: string } },
 ) {
   try {
-    const { searchParams } = new URL(req.url)
+    const { searchParams } = new URL(req.url);
     const colorId = searchParams.get('colorId') || undefined;
     const storageId = searchParams.get('storageId') || undefined;
     const conditionId = searchParams.get('conditionId') || undefined;
     const productId = searchParams.get('productId') || undefined;
     const isFeatured = searchParams.get('isFeatured');
+    const sorting = searchParams.get('sorting') || undefined;
+    const searchQuery = searchParams.get('q');
 
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
     }
+
+    const orderBy: Prisma.ProductVariantOrderByWithRelationInput[] = [];
+
+    if (sorting === 'lowest') {
+      orderBy.push({ price: 'asc' });
+    } else if (sorting === 'highest') {
+      orderBy.push({ price: 'desc' });
+    }
+
+    orderBy.push({ createdAt: 'desc' });
 
     const productVariants = await prismadb.productVariant.findMany({
       where: {
@@ -101,12 +114,15 @@ export async function GET(
         conditionId,
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
+        OR: [
+          { product: { name: { contains: searchQuery || '' } } },
+        ],
       },
       include: {
         product: {
           include: {
             category: true,
-          }
+          },
         },
         images: true,
         color: true,
@@ -114,11 +130,9 @@ export async function GET(
         storage: true,
         condition: true,
       },
-      orderBy: {
-        createdAt: 'desc',
-      }
+      orderBy,
     });
-  
+
     return NextResponse.json(productVariants);
   } catch (error) {
     console.log('[PRODUCTVARIANTS_GET]', error);
