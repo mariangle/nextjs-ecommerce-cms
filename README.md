@@ -29,7 +29,7 @@
 
 ## Introduction
 
-The Ecommerce CMS is a tool developed to simplify the management of online stores. With its integrated API, connect and integrate your online store with this CMS. This allows for easy and convenient management of your store's data.
+The Ecommerce CMS is a tool developed to simplify the management of online stores. With its integrated API, connect and integrate your online store with this CMS. This allows for easy and convenient management of your store's data. To see an example implementation, you can refer to my other [project](https://github.com/mariangle/nextjs-ecommerce-store) which uses it's own unique API endpoints.
 
 Here are some of the key features:
 
@@ -54,7 +54,7 @@ You have the ability to customize your store by creating billboards, as well as 
 
 ### Unique API Endpoints
 
-When creating your store, you will be assigned a unique storeId, which grants you access to your own individual endpoint. You can retrieve lists of entities for each entity type, which can be dynamically rendered on your website. For instance, you can fetch categories and display them in your frontend store's navigation bar. To see an example implementation, you can refer to this [GitHub repository](https://github.com/mariangle/nextjs-ecommerce-store).
+When creating your store, you will be assigned a unique storeId, which grants you access to your own individual endpoint. You can retrieve lists of entities for each entity type, which can be dynamically rendered on your website. For instance, you can fetch categories and display them in your frontend store's navigation bar.
 
 
 ![API LISTS](https://github.com/mariangle/nextjs-ecommerce-cms/assets/124585244/c534195e-822d-464a-baf4-959445b4c158)
@@ -153,8 +153,8 @@ To get a local copy up and running, follow these steps.
     Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
     See the documentation for all the connection string options: https://pris.ly/d/connection-strings
     
-    DATABASE_URL=''
-    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=""
+    DATABASE_URL=
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
     STRIPE_API_KEY=
     FRONTEND_STORE_URL=http://localhost:3001
     STRIPE_WEBHOOK_SECRET=
